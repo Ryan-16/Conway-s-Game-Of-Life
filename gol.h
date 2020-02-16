@@ -1,6 +1,7 @@
 struct universe {
-/*Put some appropriate things here*/
-
+    char **matrix;
+    int rows;
+    int cols;
 };
 
 /*Do not modify the next seven lines*/
