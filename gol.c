@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"gol.h"
+//#include<stdio.h>
+//#include<stdlib.h>
+//#include"gol.h"
 
 void read_in_file(FILE *infile, struct universe *u)
 {
@@ -55,10 +55,11 @@ void write_out_file(FILE *outfile, struct universe *u)
     }
 }
 
+/*
 int main() {
 
     struct universe v;
     read_in_file(stdin, &v);
     
     return 0;
-}
+}*/
