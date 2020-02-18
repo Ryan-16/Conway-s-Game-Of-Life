@@ -33,6 +33,18 @@ void read_in_file(FILE *infile, struct universe *u)
             u->matrix[u->rows - 1] = malloc(u->cols * sizeof(char *));
         }
     }
+
+    // free up EOF memory
+    free(u->matrix[u->rows - 1]);
+    u->rows --;
+    u->matrix = realloc(u->matrix, u->rows * sizeof(char *));
+
+/*    printf("\n\n");
+
+    for (int i = 0; i < (u->rows); i++) {
+
+        printf("%s\n", u->matrix[i]);
+    } */
 }
 
 int main() {
