@@ -47,6 +47,14 @@ void read_in_file(FILE *infile, struct universe *u)
     } */
 }
 
+void write_out_file(FILE *outfile, struct universe *u)
+{
+   
+    for (int i = 0; i < (u->rows); i++) {
+        fprintf(outfile, "%s\n", u->matrix[i]);
+    }
+}
+
 int main() {
 
     struct universe v;
