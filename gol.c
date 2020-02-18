@@ -1,27 +1,44 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include"gol.h"
+
 void read_in_file(FILE *infile, struct universe *u)
 {
-    // work out number of rows and cells
-    // dynamically allocate the memory
-    // populate the matrix
-
-    // maximum length of any given row is 512, so set first row length to 512 then realloc it once know length
-    // start with 1 row and realloc every time
 
     int current_cols;
-    int maximum_cols;
+    int maximum_cols = 512;
 
-    // start with 2 rows (so 2 char pointers)
-    u.rows = 2;
-    u.matrix = malloc(u.rows * sizeof(char *));
+    // start with initial 1 row (so 1 char pointers)
+    u->rows = 1;
+    u->matrix = malloc(u->rows * sizeof(char *));
 
-    u.matrix[0] = malloc(maximum_cols * sizeof(char *));
+    u->matrix[u->rows - 1] = malloc(maximum_cols * sizeof(char *));
+    u->cols = fscanf(infile, "%s", u->matrix[u->rows - 1]);
+    u->matrix[u->rows - 1] = realloc(u->matrix[u->rows - 1], u->cols * sizeof(char *));
 
-    current_cols = fscanf(infile, "%c", u.matrix[0]);
-    u.cols = current_cols;
+    u->rows ++;
+    u->matrix = realloc(u->matrix, u->rows * sizeof(char *));
+    u->matrix[u->rows - 1] = malloc(u->cols * sizeof(char *));
+     
+    while (-1 != (current_cols = fscanf(infile, "%s", u->matrix[u->rows - 1]))) {
 
-    u.matrix[0] = realloc(u.matrix[0], u.cols * sizeof(char *));
-    u.matrix[1] = malloc(u.cols * sizeof(char *));
+        if (current_cols != u->cols) {
+            // stderror
+        }
+
+        else {
+
+            u->rows ++;
+            u->matrix = realloc(u->matrix, u->rows * sizeof(char *));
+            u->matrix[u->rows - 1] = malloc(u->cols * sizeof(char *));
+        }
+    }
+}
+
+int main() {
+
+    struct universe v;
+    read_in_file(stdin, &v);
     
-    while (EOF != (current_cols = fscanf(infile, "%c", u.matrix[u.rows - 1])))
-
+    return 0;
 }
