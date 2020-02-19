@@ -2,6 +2,8 @@ struct universe {
     char **matrix;
     int rows;
     int cols;
+    char dead = ".";
+    char alive = "*";
 };
 
 /*Do not modify the next seven lines*/
