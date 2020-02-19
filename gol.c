@@ -8,6 +8,8 @@ void read_in_file(FILE *infile, struct universe *u)
 
     int current_cols;
     int maximum_cols = 512;
+    
+    u->generation = 1;
 
     // start with initial 1 row (so 1 char pointers), but we use index 0
     u->rows = 0;
@@ -167,6 +169,15 @@ int will_be_alive_torus(struct universe *u, int column, int row)
 
     return 0;
 }
+/*
+void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int row))
+{
+
+} */
+
+void print_statistics(struct *u)
+{
+    
 
 
 int main() {
