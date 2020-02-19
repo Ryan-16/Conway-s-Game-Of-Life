@@ -58,18 +58,65 @@ void write_out_file(FILE *outfile, struct universe *u)
 
 int is_alive(struct universe *u, int column, int row)
 {
-
-    char alive = "*";
-    char dead = ".";
-
-    if (0 == strcmp(alive, u->matrix[row - 1][column - 1])) {
-
+    if (0 == strcmp(u->alive, u->matrix[row][column])) {
         return 1;
     }
 
     else {
         return 0;
     }
+}
+
+int will_be_alive(struct universe *u, int column, int row)
+{   
+    int alive_neighbours = 0;
+
+    for (int row_modifier = -1; row_modifier <= 1; row_modifier ++ ) {
+        for(int col_modifier = -1; col_modifier <= 1; col_modifier ++) {
+            
+            if (row + row_modifier < 0 || row + row_modifier > u->rows ||
+                column + col_modifier < 0 || column + col_modifier > u->cols ||) {
+                
+                // out of universe
+                continue;
+            }
+
+            else if (col_modifier == 0 && row_modifier == 0) {
+                
+                // is the current cell
+                continue;
+            }
+
+            else if (0 == strcmp(u->alive, u->matrix[row + row_modifier][column + col_modifier])) {
+                
+                alive_neighbours ++;
+            }
+        }
+    }
+
+    if (0 == strcmp(u->alive, u->matrix[row][column])) {
+
+        // alive
+
+        if (alive_neighbours == 2 || alive_neighbours == 3) {
+
+            return 1;
+        }
+    }
+
+    else {
+
+        // dead
+
+        if (alive_neighbours == 3) {
+
+            return 1;
+        }
+    }
+
+    return 0;
+
+}
 
 
 /*
