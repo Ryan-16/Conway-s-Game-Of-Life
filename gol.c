@@ -1,6 +1,7 @@
 //#include<stdio.h>
 //#include<stdlib.h>
 //#include"gol.h"
+//#include<string.h>
 
 void read_in_file(FILE *infile, struct universe *u)
 {
@@ -54,6 +55,22 @@ void write_out_file(FILE *outfile, struct universe *u)
         fprintf(outfile, "%s\n", u->matrix[i]);
     }
 }
+
+int is_alive(struct universe *u, int column, int row)
+{
+
+    char alive = "*";
+    char dead = ".";
+
+    if (0 == strcmp(alive, u->matrix[row - 1][column - 1])) {
+
+        return 1;
+    }
+
+    else {
+        return 0;
+    }
+
 
 /*
 int main() {
