@@ -123,8 +123,50 @@ int will_be_alive(struct universe *u, int column, int row)
 
 }
 
-//int will_be_alive_torus(struct universe *u, int column, int row)
+int will_be_alive_torus(struct universe *u, int column, int row)
+{
 
+    int alive_neighbours = 0;
+
+    for (int row_modifier = -1; row_modifier <= 1; row_modifier ++ ) {
+        for(int col_modifier = -1; col_modifier <= 1; col_modifier ++) {
+
+            if (col_modifier == 0 && row_modifier == 0) {
+                
+                // is the current cell
+                continue;
+            }
+
+            else if (0 == strcmp("*", u->matrix[(row + row_modifier) % (u->rows + 1)]
+                        [(column + col_modifier) % (u->rows + 1)])) {
+                
+                alive_neighbours ++;
+            }
+        }
+    }
+
+    if (0 == strcmp("*", u->matrix[row][column])) {
+
+        // alive
+
+        if (alive_neighbours == 2 || alive_neighbours == 3) {
+
+            return 1;
+        }
+    }
+
+    else {
+
+        // dead
+
+        if (alive_neighbours == 3) {
+
+            return 1;
+        }
+    }
+
+    return 0;
+}
 
 
 int main() {
