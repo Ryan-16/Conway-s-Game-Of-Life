@@ -46,13 +46,15 @@ void read_in_file(FILE *infile, struct universe *u)
 
     u->cols --;
 
+    // now update the total alive
 
-/*    printf("\n\n");
-
-    for (int i = 0; i < (u->rows); i++) {
-
-        printf("%s\n", u->matrix[i]);
-    } */
+    for (int = 0; i <= (u->rows); i ++) {
+        for (int j = 0; j <= (u->cols); j ++) {
+            if (0 == strcmp("*", u->matrix[i][j])) {
+                u->total_alive ++;
+            }
+        }
+    }
 }
 
 void write_out_file(FILE *outfile, struct universe *u)
@@ -180,6 +182,10 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
         new_matrix[i] = malloc((u->cols) * sizeof(char *));
         for (int j = 0; j <= (u->cols); j ++) {
             new_matrix[i][j] = (*rule)(u, column, row);
+
+            if (0 == strcmp("*", u->matrix[i][j])) {
+                u->total_alive ++;
+            }
         }
     }
     
@@ -193,10 +199,33 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
 
     u->matrix = new_matrix;
 
+    u->generation ++;
+
 }
 
 void print_statistics(struct *u)
 {
+    int number_alive = 0;
+    float current_percentage;
+    float total_percenrage;
+
+    for (int = 0; i <= (u->rows); i ++) {
+        for (int j = 0; j <= (u->cols); j ++) {
+            if (0 == strcmp("*", u->matrix[i][j])) {
+                number_alive ++;
+            }
+        }
+    }
+
+    current_percentage = number_alive / ((u->rows + 1) * (u->cols + 1));
+    
+    printf("%.3f", current_percentage);
+    printf("%% of cells currently alive\n");
+
+    total_percentage = u->total_alive / ((u->rows + 1) * (u->cols + 1) * generations);
+
+    printf("%.3f", total_percentage);
+    printf("%% of cells alive on average\n");
 
 }
     
