@@ -1,8 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include"gol.h"
-#include<string.h>
-
 void read_in_file(FILE *infile, struct universe *u)
 {
 
@@ -228,13 +223,4 @@ void print_statistics(struct *u)
     printf("%% of cells alive on average\n");
 
 }
-    
 
-
-int main() {
-
-    struct universe v;
-    read_in_file(stdin, &v);
-    
-    return 0;
-}
