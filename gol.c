@@ -169,14 +169,36 @@ int will_be_alive_torus(struct universe *u, int column, int row)
 
     return 0;
 }
-/*
+
 void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int row))
 {
+    char **new_matrix;
 
-} */
+    new_matrix = malloc((u->rows + 1) * sizeof(char *));
+    
+    for (int i = 0; i <= (u->rows); i ++) {
+        new_matrix[i] = malloc((u->cols) * sizeof(char *));
+        for (int j = 0; j <= (u->cols); j ++) {
+            new_matrix[i][j] = (*rule)(u, column, row);
+        }
+    }
+    
+    // free up old array
+    
+    for (i = 0; i <= (u->rows); i ++) {
+        free(u->matrix[i]);
+    }
+
+    free(u->matrix);
+
+    u->matrix = new_matrix;
+
+}
 
 void print_statistics(struct *u)
 {
+
+}
     
 
 
