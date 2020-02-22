@@ -14,7 +14,7 @@ int main(int argc, char *argv[]){
     char *input_file_name;
     char *output_file_name;
     int number_of_generations = 5;
-    bool print_statistics = false;
+    bool print_statistics_condition = false;
     bool torus = false;
     
     
@@ -48,19 +48,19 @@ int main(int argc, char *argv[]){
                 number_of_generations = atoi(argv[arg]);
 
             case 's':
-                print_statistics = true;
+                print_statistics_condition = true;
 
             case 't':
                 torus = true;
 
             default:
-                return 1
+                return 1;
         }
 
     }
     
     read_in_file(ip1,&v);
-    for (int i = 1; i <= generations; i ++) {
+    for (int i = 1; i <= number_of_generations; i ++) {
         if (torus) {
             evolve(&v,will_be_alive_torus);
         }
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]){
             evolve(&v,will_be_alive);
         }
     }
-    if (print_statistics) {
+    if (print_statistics_condition) {
         print_statistics(&v);
     }
     write_out_file(op1,&v);
