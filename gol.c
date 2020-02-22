@@ -45,7 +45,7 @@ void read_in_file(FILE *infile, struct universe *u)
 
     for (int = 0; i <= (u->rows); i ++) {
         for (int j = 0; j <= (u->cols); j ++) {
-            if (0 == strcmp('*', u->matrix[i][j])) {
+            if (is_alive(u, j, i)) {
                 u->total_alive ++;
             }
         }
@@ -80,25 +80,23 @@ int will_be_alive(struct universe *u, int column, int row)
             
             if (row + row_modifier < 0 || row + row_modifier > u->rows ||
                 column + col_modifier < 0 || column + col_modifier > u->cols) {
-                
+    
                 // out of universe
                 continue;
             }
 
             else if (col_modifier == 0 && row_modifier == 0) {
-                
                 // is the current cell
                 continue;
             }
 
-            else if (0 == strcmp('*', u->matrix[row + row_modifier][column + col_modifier])) {
-                
+            else if (is_alive(u, column + col_modifier, row + row_modifier)) {
                 alive_neighbours ++;
             }
         }
     }
 
-    if (0 == strcmp('*', u->matrix[row][column])) {
+    if (is_alive(u, column, row)) {
 
         // alive
 
@@ -136,15 +134,14 @@ int will_be_alive_torus(struct universe *u, int column, int row)
                 continue;
             }
 
-            else if (0 == strcmp('*', u->matrix[(row + row_modifier) % (u->rows + 1)]
-                        [(column + col_modifier) % (u->rows + 1)])) {
+            else if (is_alive(u, (column + col_modifier) % (u->cols + 1), (row + row_modifier) % (u->rows + 1))) {
                 
                 alive_neighbours ++;
             }
         }
     }
 
-    if (0 == strcmp('*', u->matrix[row][column])) {
+    if (is_alive(u, column, row)) {
 
         // alive
 
@@ -178,7 +175,7 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
         for (int j = 0; j <= (u->cols); j ++) {
             new_matrix[i][j] = (*rule)(u, column, row);
 
-            if (0 == strcmp('*', u->matrix[i][j])) {
+            if (is_alive(u, j, i)) {
                 u->total_alive ++;
             }
         }
@@ -206,7 +203,7 @@ void print_statistics(struct *u)
 
     for (int = 0; i <= (u->rows); i ++) {
         for (int j = 0; j <= (u->cols); j ++) {
-            if (0 == strcmp('*', u->matrix[i][j])) {
+            if (is_alive(u, i, j)) {
                 number_alive ++;
             }
         }
