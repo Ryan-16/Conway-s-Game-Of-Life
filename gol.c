@@ -1,4 +1,8 @@
-#include"func.h"
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<stdbool.h>
+#include"gol.h"
 
 void read_in_file(FILE *infile, struct universe *u)
 {
@@ -45,7 +49,7 @@ void read_in_file(FILE *infile, struct universe *u)
 
     // now update the total alive
 
-    for (int = 0; i <= (u->rows); i ++) {
+    for (int i = 0; i <= (u->rows); i ++) {
         for (int j = 0; j <= (u->cols); j ++) {
             if (is_alive(u, j, i)) {
                 u->total_alive ++;
@@ -64,7 +68,9 @@ void write_out_file(FILE *outfile, struct universe *u)
 
 int is_alive(struct universe *u, int column, int row)
 {
-    if (0 == strcmp('*', u->matrix[row][column])) {
+    char alive = '*';
+
+    if (0 == strcmp(&alive, &(u->matrix[row][column]))) {
         return 1;
     }
 
@@ -175,7 +181,7 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
     for (int i = 0; i <= (u->rows); i ++) {
         new_matrix[i] = malloc((u->cols) * sizeof(char *));
         for (int j = 0; j <= (u->cols); j ++) {
-            new_matrix[i][j] = (*rule)(u, column, row);
+            new_matrix[i][j] = (*rule);
 
             if (is_alive(u, j, i)) {
                 u->total_alive ++;
@@ -185,7 +191,7 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
     
     // free up old array
     
-    for (i = 0; i <= (u->rows); i ++) {
+    for (int i = 0; i <= (u->rows); i ++) {
         free(u->matrix[i]);
     }
 
@@ -197,13 +203,13 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
 
 }
 
-void print_statistics(struct *u)
+void print_statistics(struct universe *u)
 {
     int number_alive = 0;
     float current_percentage;
-    float total_percenrage;
+    float total_percentage;
 
-    for (int = 0; i <= (u->rows); i ++) {
+    for (int i = 0; i <= (u->rows); i ++) {
         for (int j = 0; j <= (u->cols); j ++) {
             if (is_alive(u, i, j)) {
                 number_alive ++;
@@ -216,7 +222,7 @@ void print_statistics(struct *u)
     printf("%.3f", current_percentage);
     printf("%% of cells currently alive\n");
 
-    total_percentage = u->total_alive / ((u->rows + 1) * (u->cols + 1) * generations);
+    total_percentage = u->total_alive / ((u->rows + 1) * (u->cols + 1) * u->generation);
 
     printf("%.3f", total_percentage);
     printf("%% of cells alive on average\n");
