@@ -1,3 +1,5 @@
+#include"func.h"
+
 void read_in_file(FILE *infile, struct universe *u)
 {
 
