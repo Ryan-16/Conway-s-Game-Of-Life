@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
+#include<string.h>
 #include"gol.h"
 
 int main(int argc, char *argv[]){
@@ -60,6 +61,14 @@ int main(int argc, char *argv[]){
                     fprintf(stderr, "No number of generations given\n");
                     return 1;
                 }
+                
+                for (int i = 0; i < (int) strlen(argv[arg]); i ++){
+                    if (argv[arg][i] < '0' || argv[arg][i] > '9') {
+                        fprintf(stderr, "Number of generations was not given as a number\n");
+                        return 1;
+                    }
+                }
+
                 number_of_generations = atoi(argv[arg]);
                 break;
 
