@@ -72,6 +72,7 @@ int main(int argc, char *argv[]){
                 break;
 
             default:
+                fprintf(stderr, "Unrecognized option\n");
                 return 1;
         }
 
@@ -86,10 +87,10 @@ int main(int argc, char *argv[]){
             evolve(&v,will_be_alive);
         }
     }
+    write_out_file(op1,&v);
     if (print_statistics_condition) {
         print_statistics(&v);
     }
-    write_out_file(op1,&v);
     
     return 0;
 }
