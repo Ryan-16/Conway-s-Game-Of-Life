@@ -145,7 +145,7 @@ int will_be_alive_torus(struct universe *u, int column, int row)
                 // is the current cell
                 continue;
             }
-            else if (is_alive(u, (column + col_modifier) % (u->cols + 1), (row + row_modifier) % (u->rows + 1))) {
+            else if (is_alive(u, ((column + col_modifier) + (u->cols + 1)) % (u->cols + 1), ((row + row_modifier) + (u->rows + 1)) % (u->rows + 1))) {
                 alive_neighbours ++;
             }
         }
