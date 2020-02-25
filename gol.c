@@ -61,8 +61,11 @@ void read_in_file(FILE *infile, struct universe *u)
 void write_out_file(FILE *outfile, struct universe *u)
 {
    
-    for (int i = 0; i < (u->rows); i++) {
-        fprintf(outfile, "%s\n", u->matrix[i]);
+    for (int i = 0; i <= (u->rows); i++) {
+        for (int j = 0; j <= (u->cols); j++) {
+            fprintf(outfile, "%c", u->matrix[i][j]);
+         }
+         fprintf(outfile, "\n");
     }
 }
 
@@ -70,7 +73,8 @@ int is_alive(struct universe *u, int column, int row)
 {
     char alive = '*';
 
-    if (0 == strcmp(&alive, &(u->matrix[row][column]))) {
+//    if (0 == strcmp(&alive, &(u->matrix[row][column]))) {
+    if (alive == u->matrix[row][column]){
         return 1;
     }
 
@@ -181,7 +185,7 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
     for (int i = 0; i <= (u->rows); i ++) {
         new_matrix[i] = malloc((u->cols) * sizeof(char *));
         for (int j = 0; j <= (u->cols); j ++) {
-            if ((*rule)) {
+            if (rule(u, j, i)) {
                 new_matrix[i][j] = '*';
                 u->total_alive ++;
             }
