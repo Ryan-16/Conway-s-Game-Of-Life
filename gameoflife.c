@@ -4,7 +4,7 @@
 #include"gol.h"
 
 int main(int argc, char *argv[]){
-    
+
     struct universe v;
     FILE *ip1 = stdin;
     FILE *op1 = stdout;
@@ -15,9 +15,9 @@ int main(int argc, char *argv[]){
     int number_of_generations = 5;
     bool print_statistics_condition = false;
     bool torus = false;
+   
     
-    
-    for (int arg = 1; arg <= argc; arg ++) {
+    for (int arg = 1; arg < argc; arg ++) {
         // switch on 2nd character of arg ascii val
         
         option = argv[arg][1];
@@ -32,6 +32,7 @@ int main(int argc, char *argv[]){
                 if (ip1 == NULL) {
                     return 1;
                 }
+                break;
 
             case 'o':
                 arg ++;
@@ -41,16 +42,20 @@ int main(int argc, char *argv[]){
                 if (op1 == NULL) {
                     return 1;
                 }
+                break;
             
             case 'g':
                 arg ++;
                 number_of_generations = atoi(argv[arg]);
+                break;
 
             case 's':
                 print_statistics_condition = true;
+                break;
 
             case 't':
                 torus = true;
+                break;
 
             default:
                 return 1;
