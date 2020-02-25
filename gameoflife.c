@@ -26,26 +26,40 @@ int main(int argc, char *argv[]){
         {
             case 'i':
                 arg ++;
+                if (arg > argc) {
+                    fprintf(stderr, "No input file given\n");
+                    return 1;
+                }
                 input_file_name = argv[arg];
                 ip1 = fopen(input_file_name, "r");
 
                 if (ip1 == NULL) {
+                    fprintf(stderr, "Could not open input file\n");
                     return 1;
                 }
                 break;
 
             case 'o':
                 arg ++;
+                if (arg > argc) {
+                    fprintf(stderr, "No output file given\n");
+                    return 1;
+                }
                 output_file_name = argv[arg];
                 op1 = fopen(output_file_name, "w");
 
                 if (op1 == NULL) {
+                    fprintf(stderr, "Could not open output file\n");
                     return 1;
                 }
                 break;
             
             case 'g':
                 arg ++;
+                if (arg > argc) {
+                    fprintf(stderr, "No number of generations given\n");
+                    return 1;
+                }
                 number_of_generations = atoi(argv[arg]);
                 break;
 
