@@ -61,8 +61,7 @@ void read_in_file(FILE *infile, struct universe *u)
 }
 
 void write_out_file(FILE *outfile, struct universe *u)
-{
-   
+{ 
     for (int i = 0; i <= (u->rows); i++) {
         for (int j = 0; j <= (u->cols); j++) {
             fprintf(outfile, "%c", u->matrix[i][j]);
@@ -74,8 +73,6 @@ void write_out_file(FILE *outfile, struct universe *u)
 int is_alive(struct universe *u, int column, int row)
 {
     char alive = '*';
-
-//    if (0 == strcmp(&alive, &(u->matrix[row][column]))) {
     if (alive == u->matrix[row][column]){
         return 1;
     }
@@ -94,16 +91,13 @@ int will_be_alive(struct universe *u, int column, int row)
             
             if (row + row_modifier < 0 || row + row_modifier > u->rows ||
                 column + col_modifier < 0 || column + col_modifier > u->cols) {
-    
                 // out of universe
                 continue;
             }
-
             else if (col_modifier == 0 && row_modifier == 0) {
                 // is the current cell
                 continue;
             }
-
             else if (is_alive(u, column + col_modifier, row + row_modifier)) {
                 alive_neighbours ++;
             }
@@ -111,21 +105,12 @@ int will_be_alive(struct universe *u, int column, int row)
     }
 
     if (is_alive(u, column, row)) {
-
-        // alive
-
         if (alive_neighbours == 2 || alive_neighbours == 3) {
-
             return 1;
         }
     }
-
     else {
-
-        // dead
-
         if (alive_neighbours == 3) {
-
             return 1;
         }
     }
@@ -183,19 +168,13 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
                 new_matrix[i][j] = '.';
             }
         }
-    }
-
-    
     // free up old array
-    
     for (int i = 0; i <= (u->rows); i ++) {
         free(u->matrix[i]);
     }
 
     free(u->matrix);
-
     u->matrix = new_matrix;
-
     u->generation ++;
 
 }
