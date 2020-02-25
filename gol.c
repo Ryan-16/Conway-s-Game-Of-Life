@@ -168,6 +168,7 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
                 new_matrix[i][j] = '.';
             }
         }
+    }
     // free up old array
     for (int i = 0; i <= (u->rows); i ++) {
         free(u->matrix[i]);
@@ -176,7 +177,6 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
     free(u->matrix);
     u->matrix = new_matrix;
     u->generation ++;
-
 }
 
 void print_statistics(struct universe *u)
