@@ -181,13 +181,16 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
     for (int i = 0; i <= (u->rows); i ++) {
         new_matrix[i] = malloc((u->cols) * sizeof(char *));
         for (int j = 0; j <= (u->cols); j ++) {
-            new_matrix[i][j] = (*rule);
-
-            if (is_alive(u, j, i)) {
+            if ((*rule)) {
+                new_matrix[i][j] = '*';
                 u->total_alive ++;
+            }
+            else {
+                new_matrix[i][j] = '.';
             }
         }
     }
+
     
     // free up old array
     
