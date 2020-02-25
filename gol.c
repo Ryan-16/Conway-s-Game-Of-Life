@@ -141,36 +141,24 @@ int will_be_alive_torus(struct universe *u, int column, int row)
 
     for (int row_modifier = -1; row_modifier <= 1; row_modifier ++ ) {
         for(int col_modifier = -1; col_modifier <= 1; col_modifier ++) {
-
-            if (col_modifier == 0 && row_modifier == 0) {
-                
+            if (col_modifier == 0 && row_modifier == 0) {           
                 // is the current cell
                 continue;
             }
-
             else if (is_alive(u, (column + col_modifier) % (u->cols + 1), (row + row_modifier) % (u->rows + 1))) {
-                
                 alive_neighbours ++;
             }
         }
     }
-
     if (is_alive(u, column, row)) {
-
         // alive
-
         if (alive_neighbours == 2 || alive_neighbours == 3) {
-
             return 1;
         }
     }
-
     else {
-
         // dead
-
         if (alive_neighbours == 3) {
-
             return 1;
         }
     }
@@ -220,7 +208,7 @@ void print_statistics(struct universe *u)
 
     for (int i = 0; i <= (u->rows); i ++) {
         for (int j = 0; j <= (u->cols); j ++) {
-            if (is_alive(u, i, j)) {
+            if (is_alive(u, j, i)) {
                 number_alive ++;
             }
         }
