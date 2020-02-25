@@ -48,6 +48,8 @@ void read_in_file(FILE *infile, struct universe *u)
     u->cols --;
 
     // now update the total alive
+    
+    u->total_alive = 0;
 
     for (int i = 0; i <= (u->rows); i ++) {
         for (int j = 0; j <= (u->cols); j ++) {
@@ -224,13 +226,11 @@ void print_statistics(struct universe *u)
         }
     }
 
-    current_percentage = number_alive / ((u->rows + 1) * (u->cols + 1));
-    
+    current_percentage = ((float) number_alive / ((u->rows + 1) * (u->cols + 1))) * 100;
     printf("%.3f", current_percentage);
     printf("%% of cells currently alive\n");
-
-    total_percentage = u->total_alive / ((u->rows + 1) * (u->cols + 1) * u->generation);
-
+    
+    total_percentage = ((float) u->total_alive / ((u->rows + 1) * (u->cols + 1) * u->generation)) * 100;
     printf("%.3f", total_percentage);
     printf("%% of cells alive on average\n");
 
