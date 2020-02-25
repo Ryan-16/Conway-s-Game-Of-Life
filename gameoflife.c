@@ -16,7 +16,11 @@ int main(int argc, char *argv[]){
     int number_of_generations = 5;
     bool print_statistics_condition = false;
     bool torus = false;
-   
+
+    // options can be repeated but not conflicting
+    bool i_option = false;
+    bool o_option = false;
+    bool g_option = false;
     
     for (int arg = 1; arg < argc; arg ++) {
         // switch on 2nd character of arg ascii val
@@ -31,6 +35,12 @@ int main(int argc, char *argv[]){
                     fprintf(stderr, "No input file given\n");
                     return 1;
                 }
+               
+                if (i_option && (0 != strcmp(input_file_name, argv[arg]))) {
+                    fprintf(stderr, "Input file repeated and mismatch\n");
+                    return 1;
+                }
+
                 input_file_name = argv[arg];
                 ip1 = fopen(input_file_name, "r");
 
@@ -38,6 +48,7 @@ int main(int argc, char *argv[]){
                     fprintf(stderr, "Could not open input file\n");
                     return 1;
                 }
+                i_option = true;
                 break;
 
             case 'o':
@@ -46,6 +57,12 @@ int main(int argc, char *argv[]){
                     fprintf(stderr, "No output file given\n");
                     return 1;
                 }
+
+                if (o_option && (0 != strcmp(output_file_name, argv[arg]))) {
+                    fprintf(stderr, "Output file repeated and mismatch\n");
+                    return 1;
+                }
+   
                 output_file_name = argv[arg];
                 op1 = fopen(output_file_name, "w");
 
@@ -53,6 +70,7 @@ int main(int argc, char *argv[]){
                     fprintf(stderr, "Could not open output file\n");
                     return 1;
                 }
+                o_option = true;
                 break;
             
             case 'g':
@@ -69,7 +87,13 @@ int main(int argc, char *argv[]){
                     }
                 }
 
+                if (g_option && (number_of_generations != atoi(argv[arg]))) {
+                    fprintf(stderr, "Number of generations repeated and mismatch\n");
+                    return 1;
+                }
+
                 number_of_generations = atoi(argv[arg]);
+                g_option = true;
                 break;
 
             case 's':
