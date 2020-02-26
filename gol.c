@@ -41,11 +41,10 @@ void read_in_file(FILE *infile, struct universe *u)
     u->rows ++;
     u->matrix = realloc(u->matrix, (u->rows + 1) * sizeof(char *));
     u->matrix[u->rows] = malloc(u->cols * sizeof(char *));
-     
+
     while (-1 != fscanf(infile, "%s", buffer)) {
-        
         current_cols = strlen(buffer);
-        if (current_cols != u->cols) {
+        if (current_cols != u->cols || current_cols < 1) {
             fprintf(stderr, "Invalid universe input\n");
             exit(1);
         }
@@ -54,6 +53,7 @@ void read_in_file(FILE *infile, struct universe *u)
            
             memcpy(u->matrix[u->rows], buffer, strlen(buffer));
             for (int i = 0; i < u->cols; i ++) {
+               // printf("%c", u->matrix[u->rows][i]);
                 if (u->matrix[u->rows][i] != '*' && u->matrix[u->rows][i] != '.') {
                     fprintf(stderr, "Input contains invalid characters\n");
                     exit(1);

@@ -86,7 +86,7 @@ int main(int argc, char *argv[]){
                 
                 for (int i = 0; i < (int) strlen(argv[arg]); i ++){
                     if (argv[arg][i] < '0' || argv[arg][i] > '9') {
-                        fprintf(stderr, "Number of generations was not given as a number\n");
+                        fprintf(stderr, "Number of generations was not given as an integer\n");
                         return 1;
                     }
                 }
