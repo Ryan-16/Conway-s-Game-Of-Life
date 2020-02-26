@@ -1,9 +1,6 @@
 all: gol.o gameoflife.o
 	gcc -shared gol.o -o libgol.so -Wall -Wextra -pedantic -std=c11 
-	gcc -o gameoflife gameoflife.o -lgol -L. -Wall -Wextra -pedantic -std=c11 
-
-#libgol.so: gol.o
-#	gcc -shared gol.o -o libgol.so
+	gcc -o gameoflife gameoflife.o -lgol -L. -Wall -Wextra -pedantic -std=c11
 
 gol.o: gol.c gol.h
 	gcc -c gol.c -fPIC -Wall -Wextra -pedantic -std=c11
