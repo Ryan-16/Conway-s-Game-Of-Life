@@ -9,6 +9,7 @@ void read_in_file(FILE *infile, struct universe *u)
 
     int current_cols;
     int maximum_cols = 512;
+    char buffer[513];
     
     u->generation = 1;
 
@@ -17,22 +18,47 @@ void read_in_file(FILE *infile, struct universe *u)
     u->matrix = malloc((u->rows + 1) * sizeof(char *));
 
     u->matrix[u->rows] = malloc(maximum_cols * sizeof(char *));
-    fscanf(infile, "%s", u->matrix[u->rows]);
+    fscanf(infile, "%s", buffer);
+
+    if (strlen(buffer) > 512 || strlen(buffer) < 1) {
+        fprintf(stderr, "Invalid universe input\n");
+        exit(1);
+    }
+
+
+    memcpy(u->matrix[u->rows], buffer, strlen(buffer));
     u->cols = strlen(u->matrix[u->rows]);
+    
+    for (int i = 0; i < u->cols; i ++) {
+        if (u->matrix[u->rows][i] != '*' && u->matrix[u->rows][i] != '.') {
+            fprintf(stderr, "Input contains invalid characters\n");
+            exit(1);
+        }
+    }
+
     u->matrix[u->rows] = realloc(u->matrix[u->rows], u->cols * sizeof(char *));
 
     u->rows ++;
     u->matrix = realloc(u->matrix, (u->rows + 1) * sizeof(char *));
     u->matrix[u->rows] = malloc(u->cols * sizeof(char *));
      
-    while (-1 != fscanf(infile, "%s", u->matrix[u->rows])) {
+    while (-1 != fscanf(infile, "%s", buffer)) {
         
-        current_cols = strlen(u->matrix[u->rows]);
+        current_cols = strlen(buffer);
         if (current_cols != u->cols) {
-            // stderror
+            fprintf(stderr, "Invalid universe input\n");
+            exit(1);
         }
 
         else {
+           
+            memcpy(u->matrix[u->rows], buffer, strlen(buffer));
+            for (int i = 0; i < u->cols; i ++) {
+                if (u->matrix[u->rows][i] != '*' && u->matrix[u->rows][i] != '.') {
+                    fprintf(stderr, "Input contains invalid characters\n");
+                    exit(1);
+                }
+            }
 
             u->rows ++;
             u->matrix = realloc(u->matrix, (u->rows + 1) * sizeof(char *));
