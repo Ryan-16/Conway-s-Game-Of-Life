@@ -1,5 +1,6 @@
 struct universe {
     char **matrix;
+    // note rows and cols start at 0
     int rows;
     int cols;
     int generation;
