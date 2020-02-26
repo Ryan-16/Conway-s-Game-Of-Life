@@ -26,6 +26,10 @@ int main(int argc, char *argv[]){
         // switch on 2nd character of arg ascii val
         
         option = argv[arg][1];
+        if (strlen(argv[arg]) != 2) {
+            fprintf(stderr, "Unrecognized option\n");
+            return 1;
+        }
 
         switch(option)
         {
