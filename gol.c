@@ -53,9 +53,6 @@ void read_in_file(FILE *infile, struct universe *u)
                 fprintf(stderr, "Input contains invalid characters\n");
                 exit(1);
             }
-            if (count > u->cols) {
-                fprintf(stderr, "WRONG\n");
-                exit(1);
             } 
             u->matrix[u->rows][count] = character;
             if (is_alive(u, count, u->rows)) {
@@ -84,6 +81,11 @@ void write_out_file(FILE *outfile, struct universe *u)
 
 int is_alive(struct universe *u, int column, int row)
 {
+    if (column > u->cols || row > u->cols || column < 0 || row < 0) {
+        fprintf(stderr, "Row/col out of universe");
+        exit(1);
+    }
+
     char alive = '*';
     if (alive == u->matrix[row][column]){
         return 1;
@@ -95,14 +97,19 @@ int is_alive(struct universe *u, int column, int row)
 }
 
 int will_be_alive(struct universe *u, int column, int row)
-{   
+{  
+    if (column > u->cols || row > u->cols || column < 0 || row < 0) {
+        fprintf(stderr, "Row/col out of universe");
+        exit(1);
+    }
+
     int alive_neighbours = 0;
 
     for (int row_modifier = -1; row_modifier <= 1; row_modifier ++ ) {
         for(int col_modifier = -1; col_modifier <= 1; col_modifier ++) {
             
-            if (row + row_modifier < 0 || row + row_modifier > u->rows ||
-                column + col_modifier < 0 || column + col_modifier > u->cols) {
+            if ((long)row + (long)row_modifier < 0 || (long)row + (long)row_modifier > (long)u->rows ||
+                (long)column + (long)col_modifier < 0 || (long)column + (long)col_modifier > (long)u->cols) {
                 // out of universe
                 continue;
             }
@@ -134,6 +141,11 @@ int will_be_alive(struct universe *u, int column, int row)
 int will_be_alive_torus(struct universe *u, int column, int row)
 {
 
+    if (column > u->cols || row > u->cols || column < 0 || row < 0) {
+        fprintf(stderr, "Row/col out of universe");
+        exit(1);
+    }
+
     int alive_neighbours = 0;
 
     for (int row_modifier = -1; row_modifier <= 1; row_modifier ++ ) {
@@ -142,7 +154,7 @@ int will_be_alive_torus(struct universe *u, int column, int row)
                 // is the current cell
                 continue;
             }
-            else if (is_alive(u, ((column + col_modifier) + (u->cols + 1)) % (u->cols + 1), ((row + row_modifier) + (u->rows + 1)) % (u->rows + 1))) {
+            else if (is_alive(u, (((long)column + (long)col_modifier) + ((long)u->cols + 1)) % ((long)u->cols + 1), (((long)row + (long)row_modifier) + ((long)u->rows + 1)) % ((long)u->rows + 1))) {
                 alive_neighbours ++;
             }
         }
