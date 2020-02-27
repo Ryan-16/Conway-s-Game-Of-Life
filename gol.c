@@ -6,84 +6,70 @@
 
 void read_in_file(FILE *infile, struct universe *u)
 {
+    // load chars into temp, and then into struct, checking for errors
 
-    int current_cols;
     int maximum_cols = 512;
-    char buffer[513];
-    
+    int count = 0;
+    char character;
+    bool first_row = true;
     u->generation = 1;
-
-    // start with initial 1 row (so 1 char pointers), but we use index 0
+    
+    // start with 1 row and dynamically allocate memory (note count starting at 0)
     u->rows = 0;
+    u->cols = maximum_cols;
+    u->total_alive = 0;
     u->matrix = malloc((u->rows + 1) * sizeof(char *));
 
+    // assign first rows memory
     u->matrix[u->rows] = malloc(maximum_cols * sizeof(char *));
-    fscanf(infile, "%s", buffer);
 
-    if (strlen(buffer) > 512 || strlen(buffer) < 1) {
-        fprintf(stderr, "Invalid universe input\n");
-        exit(1);
-    }
-
-
-    memcpy(u->matrix[u->rows], buffer, strlen(buffer));
-    u->cols = strlen(u->matrix[u->rows]);
-    
-    for (int i = 0; i < u->cols; i ++) {
-        if (u->matrix[u->rows][i] != '*' && u->matrix[u->rows][i] != '.') {
-            fprintf(stderr, "Input contains invalid characters\n");
-            exit(1);
-        }
-    }
-
-    u->matrix[u->rows] = realloc(u->matrix[u->rows], u->cols * sizeof(char *));
-
-    u->rows ++;
-    u->matrix = realloc(u->matrix, (u->rows + 1) * sizeof(char *));
-    u->matrix[u->rows] = malloc(u->cols * sizeof(char *));
-
-    while (-1 != fscanf(infile, "%s", buffer)) {
-        current_cols = strlen(buffer);
-        if (current_cols != u->cols || current_cols < 1) {
-            fprintf(stderr, "Invalid universe input\n");
-            exit(1);
-        }
-
-        else {
-           
-            memcpy(u->matrix[u->rows], buffer, strlen(buffer));
-            for (int i = 0; i < u->cols; i ++) {
-               // printf("%c", u->matrix[u->rows][i]);
-                if (u->matrix[u->rows][i] != '*' && u->matrix[u->rows][i] != '.') {
-                    fprintf(stderr, "Input contains invalid characters\n");
-                    exit(1);
-                }
+    while (-1 != fscanf(infile, "%c", &character)) {
+        if (character == '\n') {
+            if (count == 0) {
+                fprintf(stderr, "Invalid new line\n");
+                exit(1);
             }
-
+            if (count >= maximum_cols) {
+                fprintf(stderr, "Too many columns\n");
+                exit(1);
+            }
+            if (first_row) {
+                u->cols = count;
+                
+                u->matrix[u->rows] = realloc(u->matrix[u->rows], (u->cols) * sizeof(char *));
+                first_row = false;
+            }
+            else if (count != u->cols) {
+                fprintf(stderr, "Inconsistent number of columns\n");
+                exit(1);
+            }
+            count = 0;
             u->rows ++;
             u->matrix = realloc(u->matrix, (u->rows + 1) * sizeof(char *));
-            u->matrix[u->rows] = malloc(u->cols * sizeof(char *));
+            u->matrix[u->rows] = malloc(u->cols * sizeof(char*));
+        }
+        else{
+            if (character != '*' && character != '.') {
+                fprintf(stderr, "Input contains invalid characters\n");
+                exit(1);
+            }
+            if (count > u->cols) {
+                fprintf(stderr, "WRONG\n");
+                exit(1);
+            } 
+            u->matrix[u->rows][count] = character;
+            if (is_alive(u, count, u->rows)) {
+                u->total_alive ++;
+            } 
+            count ++;
         }
     }
 
-    // free up EOF memory
     free(u->matrix[u->rows]);
     u->rows --;
-    u->matrix = realloc(u->matrix, (u->rows + 1) * sizeof(char *));
-
     u->cols --;
-
-    // now update the total alive
+    u->matrix = realloc(u->matrix, (u->rows + 1) * sizeof(char*));
     
-    u->total_alive = 0;
-
-    for (int i = 0; i <= (u->rows); i ++) {
-        for (int j = 0; j <= (u->cols); j ++) {
-            if (is_alive(u, j, i)) {
-                u->total_alive ++;
-            }
-        }
-    }
 }
 
 void write_out_file(FILE *outfile, struct universe *u)
