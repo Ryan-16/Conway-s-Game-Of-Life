@@ -60,7 +60,6 @@ void read_in_file(FILE *infile, struct universe *u)
             } 
             count ++;
         }
-    }
 
     free(u->matrix[u->rows]);
     u->rows --;
