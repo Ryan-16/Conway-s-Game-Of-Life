@@ -53,6 +53,9 @@ void read_in_file(FILE *infile, struct universe *u)
                 fprintf(stderr, "Input contains invalid characters\n");
                 exit(1);
             }
+            if (count > u->cols) {
+                fprintf(stderr, "Number of columns inconsistant\n");
+                exit(1);
             } 
             u->matrix[u->rows][count] = character;
             if (is_alive(u, count, u->rows)) {
