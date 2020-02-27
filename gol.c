@@ -29,7 +29,7 @@ void read_in_file(FILE *infile, struct universe *u)
                 fprintf(stderr, "Invalid new line\n");
                 exit(1);
             }
-            if (count >= maximum_cols) {
+            if (count > maximum_cols) {
                 fprintf(stderr, "Too many columns\n");
                 exit(1);
             }
