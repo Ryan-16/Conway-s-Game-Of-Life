@@ -84,8 +84,8 @@ void write_out_file(FILE *outfile, struct universe *u)
 
 int is_alive(struct universe *u, int column, int row)
 {
-    if (column > u->cols || row > u->cols || column < 0 || row < 0) {
-        fprintf(stderr, "Row/col out of universe");
+    if (column > u->cols || row > u->rows || column < 0 || row < 0) {
+        fprintf(stderr, "Row/col out of universe (is_alive) \n");
         exit(1);
     }
 
@@ -101,8 +101,8 @@ int is_alive(struct universe *u, int column, int row)
 
 int will_be_alive(struct universe *u, int column, int row)
 {  
-    if (column > u->cols || row > u->cols || column < 0 || row < 0) {
-        fprintf(stderr, "Row/col out of universe");
+    if (column > u->cols || row > u->rows || column < 0 || row < 0) {
+        fprintf(stderr, "Row/col out of universe (will_be_alive) \n");
         exit(1);
     }
 
@@ -144,8 +144,8 @@ int will_be_alive(struct universe *u, int column, int row)
 int will_be_alive_torus(struct universe *u, int column, int row)
 {
 
-    if (column > u->cols || row > u->cols || column < 0 || row < 0) {
-        fprintf(stderr, "Row/col out of universe");
+    if (column > u->cols || row > u->rows || column < 0 || row < 0) {
+        fprintf(stderr, "Row/col out of universe (torus) \n");
         exit(1);
     }
 
