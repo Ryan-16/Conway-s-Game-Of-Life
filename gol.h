@@ -4,7 +4,7 @@ struct universe {
     int rows;
     int cols;
     int generation;
-    int total_alive;
+    long long total_alive;
 };
 
 /*Do not modify the next seven lines*/
