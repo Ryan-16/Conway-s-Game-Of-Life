@@ -180,12 +180,13 @@ int will_be_alive_torus(struct universe *u, int column, int row)
 
 void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int row))
 {
-    char **new_matrix;
+//    char **new_matrix;
 
-    new_matrix = malloc((u->rows + 1) * sizeof(char *));
-    
+//    new_matrix = malloc((u->rows + 1) * sizeof(char *));
+  
+    char new_matrix[u->rows + 1][u->cols + 1];
     for (int i = 0; i <= (u->rows); i ++) {
-        new_matrix[i] = malloc((u->cols) * sizeof(char *));
+//        new_matrix[i] = malloc((u->cols + 1) * sizeof(char *));
         for (int j = 0; j <= (u->cols); j ++) {
             if (rule(u, j, i)) {
                 new_matrix[i][j] = '*';
@@ -198,11 +199,12 @@ void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int
     }
     // free up old array
     for (int i = 0; i <= (u->rows); i ++) {
-        free(u->matrix[i]);
+        //free(u->matrix[i]);
+        memcpy(u->matrix[i], new_matrix[i], u->cols + 1);
     }
 
-    free(u->matrix);
-    u->matrix = new_matrix;
+   // free(u->matrix);
+  //  u->matrix = new_matrix;
     u->generation ++;
 }
 
@@ -220,11 +222,11 @@ void print_statistics(struct universe *u)
         }
     }
 
-    current_percentage = ((float) number_alive / ((u->rows + 1) * (u->cols + 1))) * 100;
+    current_percentage = ((long double) number_alive / ((u->rows + 1) * (u->cols + 1))) * 100;
     printf("%.3f", current_percentage);
     printf("%% of cells currently alive\n");
     
-    total_percentage = ((float) u->total_alive / ((u->rows + 1) * (u->cols + 1) * u->generation)) * 100;
+    total_percentage = ((long double) u->total_alive / ((u->rows + 1) * (u->cols + 1) * u->generation)) * 100;
     printf("%.3f", total_percentage);
     printf("%% of cells alive on average\n");
 

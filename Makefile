@@ -1,4 +1,4 @@
-FLAGS = -Wall -Wextra -pedantic -std=c11 
+FLAGS = -Wall -Wextra -pedantic -std=c11 -ggdb3 
 
 all: gameoflife.o libgol.so
 	gcc -o gameoflife gameoflife.o -lgol -L. $(FLAGS)
