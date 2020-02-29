@@ -180,10 +180,8 @@ int will_be_alive_torus(struct universe *u, int column, int row)
 
 void evolve(struct universe *u, int (*rule) (struct universe *u, int column, int row))
 {
-  
     char new_matrix[u->rows + 1][u->cols + 1];
     for (int i = 0; i <= (u->rows); i ++) {
-
         for (int j = 0; j <= (u->cols); j ++) {
             if (rule(u, j, i)) {
                 new_matrix[i][j] = '*';
