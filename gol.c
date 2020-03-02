@@ -65,6 +65,11 @@ void read_in_file(FILE *infile, struct universe *u)
         }
     }
 
+    if (character != '\n') {
+        fprintf(stderr, "\nInput file did not end with a line break\n");
+        exit(1);
+    }
+
     free(u->matrix[u->rows]);
     u->rows --;
     u->cols --;
