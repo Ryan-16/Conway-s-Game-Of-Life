@@ -22,12 +22,12 @@ alive in the next generation.
 ## Usage
 
 As this program uses a dynamically-linked library, run: 
-`export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH`
+1. `export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH`
 in the directory this repository is cloned to.
 
-`make clean`
-`make all`
-`./gameoflife`
+2. `make clean`
+3. `make all`
+4. `./gameoflife`
 
 ## Options
 • -i input_filename to specify that the initial generation of the universe should be read from a file. If
