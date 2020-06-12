@@ -30,14 +30,14 @@ in the directory this repository is cloned to.
 4. `./gameoflife`
 
 ## Options
-• -i input_filename to specify that the initial generation of the universe should be read from a file. If
+* -i input_filename to specify that the initial generation of the universe should be read from a file. If
 this option is not specified, the user can type in the input via stdin
-• -o output_filename to specify a file into which the final generation should be output. If this option
+* -o output_filename to specify a file into which the final generation should be output. If this option
 is not specified, the final generation is output on the screen.
-• -g number_of_generations to specify the number of new generations for which the game should be
+* -g number_of_generations to specify the number of new generations for which the game should be
 run. (default is 5).
-• -s to print statistics after the final generation has been output.
-• -t to use the torus topology for the rule. If this is not specified, use the rule for cells outside the
+* -s to print statistics after the final generation has been output.
+* -t to use the torus topology for the rule. If this is not specified, use the rule for cells outside the
 universe being permanently dead.
 
 ## Input files
