@@ -1,6 +1,6 @@
 # Conway-s-Game-Of-Life
 
-An implementation of Conway's Game of Life in C using shared libraries
+An implementation of Conway's Game of Life in a C command-line program, using a dynamically-linked library
 
 ## About
 
@@ -44,4 +44,4 @@ universe being permanently dead.
 In any valid file, there will be at most 512 columns; the number of rows is not
 limited.
 
-e.g. a please see valid file `test.txt`
+e.g. please see valid file `test.txt`
