@@ -21,8 +21,8 @@ alive in the next generation.
 
 ## Usage
 
-As this program uses a dynamically-linked library, run: 
-1. `export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH`
+1. As this program uses a dynamically-linked library, run: 
+`export LD_LIBRARY_PATH=.:$LD_LIBRARY_PATH`
 in the directory this repository is cloned to.
 
 2. `make clean`
