@@ -1,4 +1,4 @@
-# Conway-s-Game-Of-Life
+# conways-game-of-life
 
 An implementation of Conway's Game of Life in a C command-line program, using a dynamically-linked library
 
